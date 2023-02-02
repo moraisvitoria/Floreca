@@ -1,43 +1,15 @@
 <?php
-
     require_once 'head.php';
-    include_once 'conexao.php';
-    session_start();
-    ob_start();
-
-    $id = filter_input(INPUT_GET, "email", FILTER_SANITIZE_NUMBER_INT);
-
-    if (empty($id)) {
-        $_SESSION['msg'] = "Erro: cliente não encontrado!";
-        header("Location: usuario.php");
-        exit();
-    }
-
-    $sql = "SELECT * from cliente where email = $id LIMIT 1";
-    $resultado= $conn->prepare($sql);
-    $resultado->execute();
-
-    if(($resultado) AND ($resultado->rowCount() != 0)){
-        $linha = $resultado->fetch(PDO::FETCH_ASSOC);
-        //var_dump($linha);
-        extract($linha);
-    }
-    else{
-        $_SESSION['msg'] = "Erro: cliente não encontrado!";
-        header("Location: relacliente.php");
-    }
-
-
 ?>
 
-
-<form method="POST" action="controlecliente.php">
+<form method="POST" action="controlecliente.php" enctype="multipart/form-data">
     <div class="container">
         <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3>Controle de cliente</h3>
+                    <h3>Cadastro do  cliente</h3>
                 </div>
         </div>
+
         <div class="row">
             <div class="col-md-5">
                 <div class="form-group">
@@ -142,10 +114,7 @@
   
 </form>
 
-        
 
 <?php
     require_once 'footer.php';
 ?>
-
-
